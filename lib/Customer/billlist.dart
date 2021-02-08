@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:intl/intl.dart';
 import 'package:tankcarecustomer/main.dart';
 import 'package:tankcarecustomer/main.dart';
 import 'package:connectivity/connectivity.dart';
@@ -639,7 +640,8 @@ class BillListState extends State<BillList> {
                                       direction: Axis.vertical, //default
                                       alignment: WrapAlignment.center,
                                       children: [
-                                        Text(list.invDatetime,
+                                        Text(DateFormat('dd/MM/yyyy').format(
+                                      DateTime.parse(list.invDatetime.toString())),
                                             textAlign: TextAlign.center)
                                       ]),
                                 ))),

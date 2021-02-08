@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:intl/intl.dart';
 import 'package:tankcarecustomer/main.dart';
 
 import 'package:connectivity/connectivity.dart';
@@ -625,7 +626,8 @@ class ServiceListState extends State<ServiceList> {
                                             direction: Axis.vertical, //default
                                             alignment: WrapAlignment.center,
                                             children: [
-                                      Text(list.pplanStartDate.toString(),
+                                      Text(DateFormat('dd/MM/yyyy').format(
+                                            DateTime.parse(list.pserviceDate.toString())),
                                           textAlign: TextAlign.center)
                                     ]))),
                               ),

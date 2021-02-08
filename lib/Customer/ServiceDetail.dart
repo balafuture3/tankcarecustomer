@@ -167,7 +167,8 @@ class ServiceDetailState extends State<ServiceDetail> {
       setState(() {
         // ServiceByController.text=li.planServices.se
         ServiceStartDateController.text =
-            li.planServices.pserviceDate.toString();
+            DateFormat('dd/MM/yyyy').format(
+                DateTime.parse( li.planServices.pserviceDate.toString()));
         ServiceStatusController.text =
             li.planServices.pserviceServiceStatus.toString();
         if (li.planServices.pserviceStatus.toString() == "A")
@@ -189,7 +190,8 @@ class ServiceDetailState extends State<ServiceDetail> {
         PlanYearController.text = li.plan.pplanYear.toString();
         PlanServiceController.text = li.plan.pplanService.toString();
         priceController.text = li.plan.pplanPrice.toString();
-        datecontroller.text = li.plan.pplanStartDate.toString();
+        datecontroller.text = DateFormat('dd/MM/yyyy').format(
+            DateTime.parse(li.plan.pplanStartDate.toString()));
         PlanCurrentStatusController.text =
             li.plan.pplanCurrentStatus.toString();
         damageEndDate = DateTime.parse(li.planServices.pserviceEndAt)

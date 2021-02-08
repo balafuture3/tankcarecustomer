@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:intl/intl.dart';
 import 'package:tankcarecustomer/main.dart';
 
 import 'package:connectivity/connectivity.dart';
@@ -88,7 +89,8 @@ class PlanDetailState extends State<PlanDetail> {
         PlanYearController.text = li.plan.pplanYear.toString();
         PlanServiceController.text = li.plan.pplanService.toString();
         priceController.text = li.plan.pplanPrice.toString();
-        datecontroller.text = li.plan.pplanStartDate.toString();
+        datecontroller.text =DateFormat('dd/MM/yyyy').format(
+            DateTime.parse( li.plan.pplanStartDate.toString()));
         PlanPaidStatusController.text = li.plan.pplanPaidStatus.toString();
 
         PlanCurrentStatusController.text =
@@ -936,7 +938,8 @@ class PlanDetailState extends State<PlanDetail> {
                                     alignment: WrapAlignment.center,
                                     children: [
                                       Text(
-                                        list.pserviceDate.toString(),
+                                    DateFormat('dd/MM/yyyy').format(
+                                    DateTime.parse(list.pserviceDate.toString())),
                                         textAlign: TextAlign.center,
                                       )
                                     ]),

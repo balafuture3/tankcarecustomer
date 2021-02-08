@@ -21,6 +21,7 @@ import 'package:tankcarecustomer/Customer/register.dart';
 import 'package:tankcarecustomer/CustomerModels/profile.dart';
 import 'package:tankcarecustomer/string_values.dart';
 
+import 'Customer/GroupEdit.dart';
 import 'CustomerModels/MenuModel.dart';
 
 
@@ -168,9 +169,23 @@ class HomeState extends State<Home> {
       setState(() {
         username = li.data.uname;
       });
+      if(li.data.chkgroup!=null)
+        showDialog(context:context,child:AlertDialog(
+          title: Text("Please Add Group Location details"),
+
+        actions: [
+          InkWell(
+              onTap: (){
+                Navigator.push(context,  MaterialPageRoute(builder: (context) => GroupEdit(groupid: li.data.chkgroup,)));
+              },
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text("OK",style: TextStyle(color: Colors.red),),
+              ))],));
       setState(() {
         loading = false;
       });
+
     }
 
     print("response: ${response.statusCode}");

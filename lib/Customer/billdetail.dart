@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:intl/intl.dart';
 import 'package:tankcarecustomer/main.dart';
 
 import 'package:connectivity/connectivity.dart';
@@ -74,7 +75,8 @@ class BillDetailState extends State<BillDetail> {
       CusStateController.text = li.data.cusState.toString();
 
       BillNoController.text = li.data.billNo.toString();
-      BillDateController.text = li.data.invDatetime.toString();
+      BillDateController.text = DateFormat('dd/MM/yyyy').format(
+          DateTime.parse(li.data.invDatetime.toString()));
       BillNoteController.text = li.data.billNotes.toString();
       BillStatusController.text = li.data.paidStatus.toString();
 

@@ -173,7 +173,7 @@ class LoginPagesState extends State<LoginPages> {
 
                   Container(
                     decoration: BoxDecoration(
-                      color: Colors.red.withOpacity(0.1),
+                      color: Colors.red,
                       borderRadius: BorderRadius.circular(50.0),
                     ),
                     width: width,

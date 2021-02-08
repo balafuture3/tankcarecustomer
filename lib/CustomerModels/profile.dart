@@ -23,13 +23,15 @@ class Data {
   String uname;
   String ucode;
   String urole;
+  String chkgroup;
 
-  Data({this.uname, this.ucode, this.urole});
+  Data({this.uname, this.ucode, this.urole, this.chkgroup});
 
   Data.fromJson(Map<String, dynamic> json) {
     uname = json['uname'];
     ucode = json['ucode'];
     urole = json['urole'];
+    chkgroup = json['chkgroup'];
   }
 
   Map<String, dynamic> toJson() {
@@ -37,6 +39,7 @@ class Data {
     data['uname'] = this.uname;
     data['ucode'] = this.ucode;
     data['urole'] = this.urole;
+    data['chkgroup'] = this.chkgroup;
     return data;
   }
 }

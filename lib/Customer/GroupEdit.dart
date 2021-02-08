@@ -90,12 +90,12 @@ class GroupEditState extends State<GroupEdit> {
         loading = false;
       });
       li = GroupView.fromJson(json.decode(response.body));
-      NameController.text = li.groupName;
-      GroupCodeController.text = li.groupCode;
-      GroupContactNameController.text = li.groupContactName;
-      GroupNumberController.text = li.groupContactPhone;
-      PincodeController.text = li.groupPincode;
-      addressController.text = li.groupAddress;
+      NameController.text = li.groupName.toString();
+      GroupCodeController.text = li.groupCode.toString();
+      GroupContactNameController.text = li.groupContactName.toString();
+      GroupNumberController.text = li.groupContactPhone.toString();
+      PincodeController.text = li.groupPincode.toString();
+      addressController.text = li.groupAddress.toString();
       if (li.serviceType == "COM")
         servicetypeController.text = "Service Type: Commercial";
       else
@@ -104,12 +104,23 @@ class GroupEditState extends State<GroupEdit> {
         dropdownValue = 'Residential';
       else
         dropdownValue = 'Commercial';
+if(li.latitude!=null)
+{
       _kGooglePlex = CameraPosition(
-          // bearing: 192.8334901395799,
-          target: LatLng(double.parse(li.latitude), double.parse(li.longitude)),
-          zoom: 14);
-      latitudecamera = double.parse(li.latitude);
-      longitudecamera = double.parse(li.longitude);
+      // bearing: 192.8334901395799,
+      target : LatLng(double.parse(li.latitude), double.parse(li.longitude)),
+      zoom : 14);
+}
+else {
+  _kGooglePlex = CameraPosition(
+    // bearing: 192.8334901395799,
+      target: LatLng(0.0, 0.0),
+      zoom: 14);
+  _kGooglePlex = li.latitude != null ?
+  latitudecamera = double.parse(li.latitude) : 0.0;
+  _kGooglePlex = li.latitude != null ?
+  longitudecamera = double.parse(li.longitude) : 0.0;
+}
       // if(li.res.planDatas.planServicetype.toString()=="RES")
       // ServiceTypeController.text="Service Type: Residential";
       // else
@@ -169,7 +180,7 @@ class GroupEditState extends State<GroupEdit> {
       loading = true;
     });
 
-    var url = String_values.base_url + 'state-list?page=1&limit=50';
+    var url = String_values.base_url + 'state?page=1&limit=50';
     var response = await http.get(
       url,
       headers: {
