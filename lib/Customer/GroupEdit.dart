@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:ui';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:tankcarecustomer/CustomerModels/ErrorResponse.dart';
 import 'package:tankcarecustomer/main.dart';
 
 import 'package:connectivity/connectivity.dart';
@@ -67,10 +69,12 @@ class GroupEditState extends State<GroupEdit> {
   String dropdownValue1 = '-- Select State --';
 
   String dropdownValue2 = '-- Select District --';
-  var _kGooglePlex;
+  var _kGooglePlex=CameraPosition(target: LatLng(0,0));
 
   StateListings li2;
   DistrictListings li1;
+
+  ErrorResponse ei;
 
   Future<http.Response> details(planid) async {
     setState(() {
@@ -115,11 +119,8 @@ else {
   _kGooglePlex = CameraPosition(
     // bearing: 192.8334901395799,
       target: LatLng(0.0, 0.0),
-      zoom: 14);
-  _kGooglePlex = li.latitude != null ?
-  latitudecamera = double.parse(li.latitude) : 0.0;
-  _kGooglePlex = li.latitude != null ?
-  longitudecamera = double.parse(li.longitude) : 0.0;
+      zoom: 1);
+
 }
       // if(li.res.planDatas.planServicetype.toString()=="RES")
       // ServiceTypeController.text="Service Type: Residential";
@@ -167,7 +168,7 @@ else {
     _kGooglePlex = CameraPosition(
         // bearing: 192.8334901395799,
         target: LatLng(0, 0),
-        zoom: 17);
+        zoom: 1);
     sort = false;
     details(widget.groupid)
         .then((value) => stateRequest())
@@ -305,10 +306,35 @@ else {
         setState(() {
           loading = false;
         });
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => GroupList()),
-        );
+        if(response.body.toString().contains("true")) {
+          Fluttertoast.showToast(
+              msg: "Group Edited Successfully",
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.SNACKBAR,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+          );
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => GroupList()),
+          );
+        }
+        else
+        {
+          ei=ErrorResponse.fromJson(jsonDecode(response.body));
+          Fluttertoast.showToast(
+              msg: ei.messages,
+              toastLength: Toast.LENGTH_LONG,
+              gravity: ToastGravity.SNACKBAR,
+              timeInSecForIosWeb: 1,
+              backgroundColor: Colors.red,
+              textColor: Colors.white,
+              fontSize: 16.0
+          );
+        }
+
       } else {
         setState(() {
           loading = false;
@@ -704,7 +730,50 @@ else {
                                       dropdownValue2 !=
                                           '-- Select District --' &&
                                       addressController.text.length != 0)
-                                    postRequest();
+                                    showDialog(context: context,
+                                        child: AlertDialog(title: Column(
+                                          children: [
+                                            Image.asset("tenor.gif",height: 100,),
+                                            Text("Are you sure?"),
+                                          ],
+                                        ),content: SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              Text("Do you want to Edit!"),
+                                              SizedBox(height: height/20,),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  RaisedButton(
+                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                                    color: Colors.green,
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      postRequest();
+                                                    },
+                                                    child: Text(
+                                                      "Edit",
+                                                      style: TextStyle(color: Colors.white),
+                                                    ),
+                                                  ),
+                                                  RaisedButton(
+                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                                    color: Colors.grey,
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text(
+                                                      "Cancel",
+                                                      style: TextStyle(color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        )
+                                    );
                                   else {
                                     if (NameController.text.length == 0)
                                       showDialog<void>(
