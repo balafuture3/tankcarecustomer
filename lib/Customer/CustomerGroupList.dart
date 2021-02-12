@@ -965,7 +965,50 @@ class CustomerGroupListState extends State<CustomerGroupList> {
                               else if (newValue == "Delete") {
                                 check().then((value) {
                                   if (value)
-                                    delete(list.groupId);
+                                    showDialog(context: context,
+                                        child: AlertDialog(title: Column(
+                                          children: [
+                                            Image.asset("ingo.jpeg",height: 100,),
+                                            Text("Are you sure?"),
+                                          ],
+                                        ),content: SingleChildScrollView(
+                                          child: Column(
+                                            children: [
+                                              Text("Do you want to delete!"),
+                                              SizedBox(height: height/20,),
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                children: [
+                                                  RaisedButton(
+                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                                    color: Colors.red,
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      delete(list.groupId);
+                                                    },
+                                                    child: Text(
+                                                      "Delete",
+                                                      style: TextStyle(color: Colors.white),
+                                                    ),
+                                                  ),
+                                                  RaisedButton(
+                                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                                    color: Colors.grey,
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Text(
+                                                      "Cancel",
+                                                      style: TextStyle(color: Colors.white),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        )
+                                    );
                                   else
                                     showDialog<void>(
                                       context: context,

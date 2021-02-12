@@ -1643,11 +1643,54 @@ class PlanNewState extends State<PlanNew> {
                                 (dropdownValue2 != '-- Select Year --') &&
                                 (dropdownValue3 != '-- Select Service --')) {
                               print(imagefile);
-                              discount().then((value) =>
-                                  uploadImage("",true).then((value) {
+                              showDialog(context: context,
+                                  child: AlertDialog(title: Column(
+                                    children: [
+                                      Image.asset("tenor.gif",height: 100,),
+                                      Text("Are you sure?"),
+                                    ],
+                                  ),content: SingleChildScrollView(
+                                    child: Column(
+                                      children: [
+                                        Text("Do you want to Add!"),
+                                        SizedBox(height: height/20,),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            RaisedButton(
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                              color: Colors.green,
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                                discount().then((value) =>
+                                                    uploadImage("",true).then((value) {
 
 
-                                  }));
+                                                    }));},
+                                              child: Text(
+                                                "Add",
+                                                style: TextStyle(color: Colors.white),
+                                              ),
+                                            ),
+                                            RaisedButton(
+                                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                              color: Colors.grey,
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              child: Text(
+                                                "Cancel",
+                                                style: TextStyle(color: Colors.white),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  )
+                              );
+
                             } else {
                               if (_typeAheadController.text.length == 0)
                                 showDialog<void>(

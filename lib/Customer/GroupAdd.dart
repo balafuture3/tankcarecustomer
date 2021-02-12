@@ -1130,7 +1130,50 @@ class GroupAddState extends State<GroupAdd> {
                             dropdownValue1 != '-- Select State --' &&
                             dropdownValue2 != '-- Select District --' &&
                             addressController.text.length != 0)
-                          postRequest();
+                          showDialog(context: context,
+                              child: AlertDialog(title: Column(
+                                children: [
+                                  Image.asset("tenor.gif",height: 100,),
+                                  Text("Are you sure?"),
+                                ],
+                              ),content: SingleChildScrollView(
+                                child: Column(
+                                  children: [
+                                    Text("Do you want to Add!"),
+                                    SizedBox(height: height/20,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        RaisedButton(
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                          color: Colors.green,
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                            postRequest();
+                                          },
+                                          child: Text(
+                                            "Add",
+                                            style: TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                        RaisedButton(
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(25))),
+                                          color: Colors.grey,
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            "Cancel",
+                                            style: TextStyle(color: Colors.white),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              )
+                          );
                         else {
                           if (NameController.text.length == 0)
                             showDialog<void>(
